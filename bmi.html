@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>BMI Calculator</title>
+    <link
+      href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+
+    <script type="text/javascript">
+      function computeBMI() {
+        // user inputs
+        var height = Number(document.getElementById("height").value);
+        var heightunits = document.getElementById("heightunits").value;
+        var weight = Number(document.getElementById("weight").value);
+        var weightunits = document.getElementById("weightunits").value;
+
+        //Convert all units to metric
+        if (heightunits == "inches") height /= 39.3700787;
+        if (weightunits == "lb") weight /= 2.20462;
+
+        //Perform calculation
+
+        //        var BMI = weight /Math.pow(height, 2)*10000;
+        var BMI = Math.round((weight / Math.pow(height, 2)) * 10000);
+
+        //Display result of calculation
+        document.getElementById("output").innerText =
+          Math.round(BMI * 100) / 100;
+
+        var output = Math.round(BMI * 100) / 100;
+        if (output < 18.5)
+          document.getElementById("comment").innerText = "Underweight";
+        else if (output >= 18.5 && output <= 25)
+          document.getElementById("comment").innerText = "Normal";
+        else if (output >= 25 && output <= 30)
+          document.getElementById("comment").innerText = "Obese";
+        else if (output > 30)
+          document.getElementById("comment").innerText = "Overweight";
+        // document.getElementById("answer").value = output;
+      }
+    </script>
+  </head>
+
+  <style>
+    .bmibody {
+      background: linear-gradient(120deg, #ff6b6b, #5f27cd);
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+    }
+
+    .container {
+      border: solid white 0px;
+      width: calc(700px + 1vw);
+      height: calc(400px + 0.5vw);
+      padding: 2vw;
+      background: rgba(0, 0, 0, 0.1);
+      box-shadow: 3px 3px 10px 0.2px white;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .title-font {
+      color: white;
+      text-align: center;
+    }
+
+    .small {
+      font-size: medium;
+    }
+
+    .BMIoutput {
+      width: calc(100px + 2vw);
+      min-height: 40px;
+      border-radius: 0.5vw;
+      margin-bottom: 2vw;
+    }
+
+    .means {
+      text-align: center;
+      width: calc(400px + 2vw);
+    }
+
+    .inputclass {
+      background: none;
+      border-bottom: solid white 1px;
+      color: rgb(66, 5, 66);
+      text-align: center;
+    }
+
+    #heightunits,
+    #weightunits {
+      background: none;
+    }
+
+    select {
+      color: rgb(66, 5, 66);
+    }
+
+    .inputclass::placeholder {
+      color: rgb(66, 5, 66);
+    }
+
+    .BMIbtn {
+      border: 1px solid white;
+    }
+
+    .wrapper {
+      width: calc(400px + 2vw);
+    }
+  </style>
+
+  <body class="bmibody">
+    <div class="container">
+      <h1
+        class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900"
+      >
+        Body Mass Index Calculator
+      </h1>
+      <div class="wrapper">
+        <p class="mb-8 leading-relaxed">
+          Enter your height:
+          <input
+            class="inputclass"
+            required
+            placeholder="0"
+            type="text"
+            id="height"
+          />
+          <select type="multiple" id="heightunits">
+            <option class="option" value="metres" selected="selected"
+              >metres</option
+            >
+            <option value="inches">inches</option>
+          </select>
+        </p>
+        <p class="mb-8 leading-relaxed">
+          Enter your weight:
+          <input
+            class="inputclass"
+            required
+            placeholder="0"
+            type="text"
+            id="weight"
+          />
+          <select type="multiple" id="weightunits">
+            <option value="kg" selected="selected">kilograms</option>
+            <option value="lb">pounds</option>
+          </select>
+        </p>
+
+        <br />
+      </div>
+      <button
+        class="BMIoutput BMIbtn"
+        type="submit"
+        value="computeBMI"
+        onclick="computeBMI();"
+      >
+        <strong> Your BMI is: <span id="output">?</span></strong>
+      </button>
+      <strong class="means">
+        This means you are: <span id="comment"> ?</span>
+      </strong>
+    </div>
+  </body>
+</html>
